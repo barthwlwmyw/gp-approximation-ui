@@ -1,26 +1,86 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
+import { makeStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
+import axios from 'axios'
 
-function App() {
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1)
+    }
+  },
+  input: {
+    display: 'none'
+  }
+}))
+
+function App () {
+  // eslint-disable-next-line
+  const classes = useStyles();
+
+  const [file, setFile] = useState('')
+  const [filename, setFilename] = useState('Choose File')
+
+  const onChange = e => {
+    setFile(e.target.files[0])
+    setFilename(e.target.files[0].name)
+  }
+
+  const testClick = async () => {
+    try {
+      const res = await axios.get('https://localhost:44322/api/Session')
+
+      window.alert(res)
+    } catch (err) {
+      window.alert('sukabliat')
+    }
+  }
+
+  const onSubmit = async e => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const res = await axios.post('https://localhost:44322/api/Test', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      console.log(res)
+    } catch (err) {
+    } finally {
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className='App'>
+      <header className='App-header'>
+        <form onSubmit={onSubmit}>
+          <input
+            // className={classes.input}
+            id='customFile'
+            type='file'
+            onChange={onChange}
+          />
+          <label htmlFor='customFile'>
+            <Button variant='contained' color='primary' component='span'>
+              {filename}
+            </Button>
+            <Button color='secondary' type='submit'>
+          submit
+            </Button>
+          </label>
+        </form>
+
+        <Button onClick={testClick}>
+       AnxiosTEST
+        </Button>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
