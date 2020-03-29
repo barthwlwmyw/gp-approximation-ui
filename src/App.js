@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
+import { Button, Card, Container } from '@material-ui/core'
 import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: 'none'
+  },
+  card: {
+    margin: '2px'
   }
 }))
 
@@ -51,6 +54,7 @@ function App () {
 
       console.log(res)
     } catch (err) {
+      window.alert(err)
     } finally {
     }
   }
@@ -79,6 +83,17 @@ function App () {
        AnxiosTEST
         </Button>
       </header>
+      <Container>
+        <Card className={classes.card}>
+          ParamsPanel
+        </Card>
+        <Card>
+          PlotPanel
+        </Card>
+        <Card>
+          GA Panel
+        </Card>
+      </Container>
     </div>
   )
 }
