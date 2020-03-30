@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Button, Card, Container } from '@material-ui/core'
 import axios from 'axios'
 
+import ParamsPanel from './components/ParamsPanel'
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -12,9 +14,6 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: 'none'
-  },
-  card: {
-    margin: '2px'
   }
 }))
 
@@ -84,13 +83,11 @@ function App () {
         </Button>
       </header>
       <Container>
+        <ParamsPanel />
         <Card className={classes.card}>
-          ParamsPanel
-        </Card>
-        <Card>
           PlotPanel
         </Card>
-        <Card>
+        <Card className={classes.card}>
           GA Panel
         </Card>
       </Container>
