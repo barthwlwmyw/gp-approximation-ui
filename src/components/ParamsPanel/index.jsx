@@ -1,39 +1,44 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Button, Card, Grid, Slider, Typography } from '@material-ui/core'
-import SearchIcon from '@material-ui/icons/Search'
-import Icon from '@material-ui/core/Icon'
-import axios from 'axios'
+import { Card, Grid, Slider, Typography } from '@material-ui/core'
 import useStyles from '../../atoms'
+
+// import React, { useState } from 'react'
+
+// import { Button, Card, Grid, Slider, Typography } from '@material-ui/core'
+// import SearchIcon from '@material-ui/icons/Search'
+// import Icon from '@material-ui/core/Icon'
+// import axios from 'axios'
+// import useStyles from '../../atoms'
 
 const ParamsPanel = __ => {
   const classes = useStyles()
 
-  const [dataFile, setDataFile] = useState('')
-  const [dataFilename, setDataFilename] = useState('Wybierz plik z danymi')
+  // const [dataFile, setDataFile] = useState('')
+  // const [dataFilename, setDataFilename] = useState('Wybierz plik z danymi')
 
-  const onFileInputChange = e => {
-    setDataFile(e.target.files[0])
-    setDataFilename(e.target.files[0].name)
-  }
+  // const onFileInputChange = e => {
+  //   setDataFile(e.target.files[0])
+  //   setDataFilename(e.target.files[0].name)
+  // }
 
-  const onFileInputSubmit = async e => {
-    e.preventDefault()
-    const formData = new window.FormData()
-    formData.append('file', dataFile)
-    try {
-      const res = await axios.post('https://localhost:44322/api/Test', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+  // const onFileInputSubmit = async e => {
+  //   e.preventDefault()
+  //   const formData = new window.FormData()
+  //   formData.append('file', dataFile)
+  //   try {
+  //     const res = await axios.post('https://localhost:44322/api/Test', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     })
 
-      console.log(res)
-    } catch (err) {
-      window.alert(err)
-    } finally {
-    }
-  }
+  //     console.log(res)
+  //   } catch (err) {
+  //     window.alert(err)
+  //   } finally {
+  //   }
+  // }
 
   return (
     <>
@@ -90,7 +95,7 @@ const ParamsPanel = __ => {
             />
           </Grid>
           <Grid item xs={4} className={classes.gridItem}>
-            <form onSubmit={onFileInputSubmit}>
+            {/* <form onSubmit={onFileInputSubmit}>
               <input
                 className={classes.input}
                 id='dataFile'
@@ -108,7 +113,7 @@ const ParamsPanel = __ => {
                   Start
                 </Button>
               </label>
-            </form>
+            </form> */}
           </Grid>
         </Grid>
       </Card>
