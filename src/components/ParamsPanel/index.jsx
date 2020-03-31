@@ -1,25 +1,10 @@
 import React, { useState } from 'react'
 
-import { makeStyles } from '@material-ui/core/styles'
 import { Button, Card, Grid, Slider, Typography } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import Icon from '@material-ui/core/Icon'
 import axios from 'axios'
-const useStyles = makeStyles(theme => ({
-  defaultPadding: {
-    margin: '12px',
-    padding: '24px'
-  },
-  input: {
-    display: 'none'
-  },
-  button: {
-    margin: theme.spacing(1)
-  },
-  card: {
-    margin: '12px'
-  }
-}))
+import useStyles from '../../atoms'
 
 const ParamsPanel = __ => {
   const classes = useStyles()
@@ -34,7 +19,7 @@ const ParamsPanel = __ => {
 
   const onFileInputSubmit = async e => {
     e.preventDefault()
-    const formData = new FormData()
+    const formData = new window.FormData()
     formData.append('file', dataFile)
     try {
       const res = await axios.post('https://localhost:44322/api/Test', formData, {
