@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-  defaultPadding: {
-    margin: '12px',
-    padding: '24px'
+  root: {
+    '& > *': {
+      margin: theme.spacing(1)
+    }
   },
   input: {
     display: 'none'
@@ -11,8 +12,14 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
+  defaultPadding: {
+    padding: '16px'
+  },
+  mediumPadding: {
+    padding: '32px'
+  },
   card: {
-    margin: '12px'
+    margin: '14px'
   },
   alignLeft: {
     'text-align': 'left'
