@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Box, Button, Card, Divider, Slider, Typography } from '@material-ui/core'
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore'
@@ -6,15 +7,23 @@ import SendIcon from '@material-ui/icons/Send'
 import useStyles from '../../atoms'
 import axios from 'axios'
 import SearchIcon from '@material-ui/icons/Search'
+
+import { loadDatafile } from '../../actions'
 const ParamsPanel = __ => {
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   const [dataFile, setDataFile] = useState('')
   const [dataFilename, setDataFilename] = useState('Wybierz plik z danymi')
 
   const onFileInputChange = e => {
-    setDataFile(e.target.files[0])
-    setDataFilename(e.target.files[0].name)
+    const file = e.target.files[0]
+    if (file) {
+      dispatch(loadDatafile(file))
+
+      setDataFile(e.target.files[0])
+      setDataFilename(e.target.files[0].name)
+    }
   }
 
   const onFileInputSubmit = async e => {

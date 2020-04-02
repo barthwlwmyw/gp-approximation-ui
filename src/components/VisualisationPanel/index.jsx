@@ -7,6 +7,7 @@ import { AppBar, Box, Card, Typography } from '@material-ui/core'
 import useStyles from '../../atoms'
 
 import PlotPanel from '../PlotPanel'
+import AlgorithmPanel from '../AlgotithmPanel'
 
 const VisualisationPanel = __ => {
   const classes = useStyles()
@@ -59,7 +60,7 @@ const VisualisationPanel = __ => {
           <PlotPanel />
         </TabPanel>
         <TabPanel value={value} index={1}>
-            Wizualizacja przebiegu algorytmu
+          <AlgorithmPanel />
         </TabPanel>
       </Card>
     </>
