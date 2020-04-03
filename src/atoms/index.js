@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
   },
   alignLeft: {
     'text-align': 'left'
+  },
+  primaryColor: {
+    color: '#115293'
   }
 }))
 

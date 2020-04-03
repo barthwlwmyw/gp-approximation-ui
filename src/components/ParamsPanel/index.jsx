@@ -13,8 +13,20 @@ const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const defaultParams = {
+    populationSize: 100,
+    generationsNumber: 30,
+    crossoverProbability: 0.3,
+    mutationProbability: 0.1
+  }
+
   const [dataFile, setDataFile] = useState('')
   const [dataFilename, setDataFilename] = useState('Wybierz plik z danymi')
+
+  const [populationSize, setPopulationSize] = useState(defaultParams.populationSize)
+  const [generationsNumber, setGenerationsNumber] = useState(defaultParams.generationsNumber)
+  const [crossoverProbability, setCrossoverProbability] = useState(defaultParams.crossoverProbability)
+  const [mutationProbability, setMutationProbability] = useState(defaultParams.mutationProbability)
 
   const onFileInputChange = e => {
     const file = e.target.files[0]
@@ -55,50 +67,58 @@ const ParamsPanel = __ => {
         <Divider />
         <div className={classes.mediumPadding}>
           <Typography id='population-size-slider' gutterBottom>
-           Rozmiar populacji
+           Rozmiar populacji:&nbsp;
+            <span className={classes.primaryColor}>{populationSize}</span>
           </Typography>
           <Slider
-            defaultValue={100}
+            defaultValue={defaultParams.populationSize}
             valueLabelDisplay='auto'
             step={25}
             marks
             min={25}
             max={500}
+            onChange={(e, val) => setPopulationSize(val)}
           />
           <Typography id='generations-number-slider' gutterBottom>
-                Liczba pokoleń
+                Liczba pokoleń:&nbsp;
+            <span className={classes.primaryColor}>{generationsNumber}</span>
           </Typography>
           <Slider
-            defaultValue={30}
+            defaultValue={defaultParams.generationsNumber}
             valueLabelDisplay='auto'
             step={10}
             marks
             min={10}
             max={200}
+            onChange={(e, val) => setGenerationsNumber(val)}
           />
           <Typography id='crossover-slider' gutterBottom>
-                Prawdopodobieństwo krzyżowania
+                Prawdopodobieństwo krzyżowania:&nbsp;
+            <span className={classes.primaryColor}>{crossoverProbability.toFixed(2)}</span>
           </Typography>
           <Slider
-            defaultValue={0.3}
+            defaultValue={defaultParams.crossoverProbability}
             aria-labelledby='discrete-slider'
             valueLabelDisplay='auto'
             step={0.05}
             marks
             min={0}
             max={1}
+            onChange={(e, val) => setCrossoverProbability(val)}
           />
           <Typography id='mutation-slider' gutterBottom>
-                Prawdopodobieństwo mutacji
+                Prawdopodobieństwo mutacji:&nbsp;
+            <span className={classes.primaryColor}>{mutationProbability.toFixed(2)}</span>
           </Typography>
           <Slider
-            defaultValue={0.1}
+            defaultValue={defaultParams.mutationProbability}
             aria-labelledby='discrete-slider'
             valueLabelDisplay='auto'
             step={0.05}
             marks
             min={0}
             max={1}
+            onChange={(e, val) => setMutationProbability(val)}
           />
         </div>
         <Divider />
