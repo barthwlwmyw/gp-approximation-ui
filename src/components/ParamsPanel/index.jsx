@@ -7,8 +7,9 @@ import SendIcon from '@material-ui/icons/Send'
 import useStyles from '../../atoms'
 import axios from 'axios'
 import SearchIcon from '@material-ui/icons/Search'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
-import { loadDatafile } from '../../actions'
+import { loadDatafile, createApproxTask } from '../../actions'
 const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -27,6 +28,10 @@ const ParamsPanel = __ => {
   const [generationsNumber, setGenerationsNumber] = useState(defaultParams.generationsNumber)
   const [crossoverProbability, setCrossoverProbability] = useState(defaultParams.crossoverProbability)
   const [mutationProbability, setMutationProbability] = useState(defaultParams.mutationProbability)
+
+  const onApproxTaskStarted = e => {
+    dispatch(createApproxTask())
+  }
 
   const onFileInputChange = e => {
     const file = e.target.files[0]
@@ -60,7 +65,7 @@ const ParamsPanel = __ => {
     <>
       <Card className={classes.card}>
         <p>
-          <Typography id='population-size-slider' variant='h6' gutterBottom>
+          <Typography id='params-slider' variant='h6' gutterBottom>
            Parametry algorytmu
           </Typography>
         </p>
@@ -141,6 +146,7 @@ const ParamsPanel = __ => {
           </form>
         </Box>
         <Divider />
+        <LinearProgress variant='determinate' value={50} />
         <Box display='flex' p={1}>
           <Box className={classes.alignLeft} p={1} flexGrow={1}>
             <Button variant='contained' onClick={() => { window.alert('not implemented') }} color='tertiary' component='span' startIcon={<SettingsBackupRestoreIcon />}>
@@ -148,7 +154,7 @@ const ParamsPanel = __ => {
             </Button>
           </Box>
           <Box p={1}>
-            <Button variant='contained' onClick={() => { window.alert('not implemented') }} color='primary' component='span' startIcon={<SendIcon />}>
+            <Button variant='contained' onClick={onApproxTaskStarted} color='primary' component='span' startIcon={<SendIcon />}>
                   Start
             </Button>
           </Box>
