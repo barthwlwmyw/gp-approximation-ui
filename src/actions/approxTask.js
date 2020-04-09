@@ -14,3 +14,20 @@ export const createApproxTaskFailure = (err) => ({
   type: CREATE_APPROX_TASK_FAILURE,
   error: err
 })
+
+export const CHECK_TASK_STATUS = 'CHECK_TASK_STATUS'
+export const checkTaskStatus = () => ({
+  type: CHECK_TASK_STATUS
+})
+
+export const CHECK_TASK_STATUS_SUCCESS = 'CHECK_TASK_STATUS_SUCCESS'
+export const checkTaskStatusSuccess = (res) => ({
+  type: CHECK_TASK_STATUS_SUCCESS,
+  response: res
+})
+
+export const CHECK_TASK_STATUS_FAILURE = 'CHECK_TASK_STATUS_FAILURE'
+export const checkTaskStatusFailure = (err) => ({
+  type: CHECK_TASK_STATUS_FAILURE,
+  error: err
+})
