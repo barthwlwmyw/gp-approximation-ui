@@ -4,7 +4,7 @@ import { ajax } from 'rxjs/ajax'
 import epic from './epic'
 
 import session from './reducers/session'
-import { createTaskReducer } from './reducers/approxTask'
+import { createTaskReducer, checkTaskStatusReducer } from './reducers/approxTask'
 
 const getStore = () => {
   const epicMiddleware = createEpicMiddleware({ dependencies: { ajax } })
@@ -19,7 +19,7 @@ const getStore = () => {
 
   const enhancer = composeEnhancers(applyMiddleware(...middlewares))
 
-  const rootReducer = combineReducers({ session, createTaskReducer })
+  const rootReducer = combineReducers({ session, createTaskReducer, checkTaskStatusReducer })
 
   const initialState = {}
 

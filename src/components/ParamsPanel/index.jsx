@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as R from 'ramda'
 
 import { Box, Button, Card, Divider, Slider, Typography } from '@material-ui/core'
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore'
@@ -13,6 +14,8 @@ import { loadDatafile, createApproxTask } from '../../actions'
 const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
+
+  const taskProgress = useSelector(R.path(['checkTaskStatusReducer', 'taskProgress']))
 
   const defaultParams = {
     populationSize: 100,
@@ -146,7 +149,7 @@ const ParamsPanel = __ => {
           </form>
         </Box>
         <Divider />
-        <LinearProgress variant='determinate' value={50} />
+        {renderProgressBar(taskProgress)}
         <Box display='flex' p={1}>
           <Box className={classes.alignLeft} p={1} flexGrow={1}>
             <Button variant='contained' onClick={() => { window.alert('not implemented') }} color='tertiary' component='span' startIcon={<SettingsBackupRestoreIcon />}>
@@ -161,6 +164,14 @@ const ParamsPanel = __ => {
         </Box>
       </Card>
     </>)
+}
+
+const renderProgressBar = (taskProgress) => {
+  if (taskProgress !== 0 && taskProgress !== 100) {
+    return <LinearProgress variant='determinate' visible={false} value={taskProgress} />
+  } else {
+    return null
+  }
 }
 
 export default ParamsPanel
