@@ -1,12 +1,26 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import { AppBar, Grid, Toolbar, Typography } from '@material-ui/core'
 import ParamsPanel from './components/ParamsPanel'
 import VisualisationPanel from './components/VisualisationPanel'
 import useStyles from './atoms'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
+
+import * as R from 'ramda'
+
+import { closeSnackbar } from './actions'
+
+function Alert (props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />
+}
 
 function App () {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const notificationOpen = useSelector(R.path(['notificationReducer', 'notificationOpen']))
 
   return (
     <div className='App'>
@@ -26,6 +40,12 @@ function App () {
           <VisualisationPanel />
         </Grid>
       </Grid>
+
+      <Snackbar open={notificationOpen} autoHideDuration={6000} onClose={() => dispatch(closeSnackbar())}>
+        <Alert onClose={() => dispatch(closeSnackbar())} severity='error'>
+          Connection error!
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
