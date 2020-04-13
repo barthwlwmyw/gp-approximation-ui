@@ -20,7 +20,7 @@ function App () {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const notificationOpen = useSelector(R.path(['notificationReducer', 'notificationOpen']))
+  const notification = useSelector(R.path(['notification']))
 
   return (
     <div className='App'>
@@ -41,9 +41,9 @@ function App () {
         </Grid>
       </Grid>
 
-      <Snackbar open={notificationOpen} autoHideDuration={6000} onClose={() => dispatch(closeSnackbar())}>
-        <Alert onClose={() => dispatch(closeSnackbar())} severity='error'>
-          Connection error!
+      <Snackbar open={notification.isOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }} autoHideDuration={6000} onClose={() => dispatch(closeSnackbar())}>
+        <Alert onClose={() => dispatch(closeSnackbar())} severity={notification.type}>
+          {notification.message}
         </Alert>
       </Snackbar>
     </div>

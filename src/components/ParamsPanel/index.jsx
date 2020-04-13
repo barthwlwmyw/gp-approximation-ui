@@ -15,7 +15,7 @@ const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const taskProgress = useSelector(R.path(['checkTaskStatusReducer', 'taskProgress']))
+  const taskProgress = useSelector(R.path(['approximationTask', 'taskProgress']))
 
   const defaultParams = {
     populationSize: 100,

@@ -1,20 +1,32 @@
 import { CLOSE_SNACKBAR, CREATE_APPROX_TASK_FAILURE, CHECK_TASK_STATUS_FAILURE } from '../../actions'
 
-export const notificationReducer = (state = { notificationOpen: false }, action) => {
+export const notification = (state = notificationDefault(), action) => {
   switch (action.type) {
     case CLOSE_SNACKBAR:
       return {
-        notificationOpen: false
+        ...notificationDefault()
       }
     case CREATE_APPROX_TASK_FAILURE:
       return {
-        notificationOpen: true
+        isOpen: true,
+        type: 'error',
+        message: 'Failed to run approximation task'
       }
     case CHECK_TASK_STATUS_FAILURE:
       return {
-        notificationOpen: true
+        isOpen: true,
+        type: 'error',
+        message: 'Failed to check approximation status'
       }
     default:
       return state
+  }
+}
+
+const notificationDefault = () => {
+  return {
+    isOpen: false,
+    type: 'info',
+    message: ''
   }
 }

@@ -3,9 +3,10 @@ import { createEpicMiddleware } from 'redux-observable'
 import { ajax } from 'rxjs/ajax'
 import epic from './epic'
 
-import session from './reducers/session'
-import { createTaskReducer, checkTaskStatusReducer } from './reducers/approxTask'
-import { notificationReducer } from './reducers/notification'
+import { approximationTask } from './reducers/approxTask'
+import { notification } from './reducers/notification'
+import { visualisation } from './reducers/visualisation'
+import { dataSource } from './reducers/dataSource'
 
 const getStore = () => {
   const epicMiddleware = createEpicMiddleware({ dependencies: { ajax } })
@@ -20,7 +21,14 @@ const getStore = () => {
 
   const enhancer = composeEnhancers(applyMiddleware(...middlewares))
 
-  const rootReducer = combineReducers({ session, createTaskReducer, checkTaskStatusReducer, notificationReducer })
+  const rootReducer = combineReducers({
+    // createTaskReducer,
+    // checkTaskStatusReducer,
+    approximationTask,
+    dataSource,
+    visualisation,
+    notification
+  })
 
   const initialState = {}
 

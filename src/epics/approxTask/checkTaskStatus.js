@@ -13,9 +13,9 @@ const checkTaskStatusEpic = (action$, state$, { ajax }) =>
     ofType(CREATE_APPROX_TASK_SUCCESS, CHECK_TASK_STATUS_SUCCESS),
     delay(1000),
     withLatestFrom(state$),
-    filter(([_, state]) => state.checkTaskStatusReducer.isDone !== true),
+    filter(([_, state]) => state.approximationTask.isDone !== true),
     mergeMap(([action, state]) => {
-      return ajax(reqData(state.createTaskReducer.approxTaskGuid)).pipe(
+      return ajax(reqData(state.approximationTask.taskGuid)).pipe(
         map(res => checkTaskStatusSuccess(res.response)),
         catchError(err => ActionsObservable.of(checkTaskStatusFailure(err)))
       )
