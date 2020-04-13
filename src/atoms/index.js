@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   },
   primaryColor: {
     color: '#115293'
+  },
+  gridItemParamsPanel: {
+    'min-width': '300px'
   }
 }))
 

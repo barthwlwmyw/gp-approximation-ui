@@ -32,7 +32,7 @@ function App () {
         <Grid
           item
           xs={3}
-          className={classes.gridItem}
+          className={classes.gridItemParamsPanel}
         >
           <ParamsPanel />
         </Grid>
