@@ -5,7 +5,7 @@ export const dataSource = (state = dataSourceDefault(), action) => {
     case PARSE_DATAFILE_SUCCESS:
       return {
         ...state,
-        fileContent: action.file
+        fileContent: action.fileContent
       }
     default:
       return state

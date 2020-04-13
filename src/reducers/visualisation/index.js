@@ -5,7 +5,7 @@ export const visualisation = (state = visualisationDefault(), action) => {
   switch (action.type) {
     case PARSE_DATAFILE_SUCCESS:
       return {
-        dataSourcePlot: toPlotlyFriendlyDataset(action.file)
+        dataSourcePlot: toPlotlyFriendlyDataset(action.fileContent)
       }
     default:
       return state
@@ -27,9 +27,6 @@ const toPlotlyFriendlyDataset = (file) => {
     xvals = R.append(values[0], xvals)
     yvals = R.append(values[1], yvals)
   })
-
-  //   R.append(1, xvals)
-  //   R.append(1, yvals)
 
   return { x: xvals, y: yvals }
 }

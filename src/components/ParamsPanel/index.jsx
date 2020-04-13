@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
-import { Box, Button, Card, Divider, Slider, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, Box, Button, Card, Divider, Slider, Typography } from '@material-ui/core'
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore'
 import SendIcon from '@material-ui/icons/Send'
 import useStyles from '../../atoms'
@@ -67,12 +67,13 @@ const ParamsPanel = __ => {
   return (
     <>
       <Card className={classes.card}>
-        <p>
-          <Typography id='params-slider' variant='h6' gutterBottom>
-           Parametry algorytmu
-          </Typography>
-        </p>
-        <Divider />
+        <AppBar position='sticky'>
+          <Toolbar>
+            <Typography variant='h6' className={classes.title}>
+            Parametry algorytmu
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <div className={classes.mediumPadding}>
           <Typography id='population-size-slider' gutterBottom>
            Rozmiar populacji:&nbsp;

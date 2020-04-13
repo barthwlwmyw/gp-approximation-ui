@@ -7,9 +7,9 @@ export const loadDatafile = (file) => ({
 })
 
 export const PARSE_DATAFILE_SUCCESS = 'PARSE_DATAFILE_SUCCESS'
-export const parseDatafileSuccess = (file) => ({
+export const parseDatafileSuccess = (fileContent) => ({
   type: PARSE_DATAFILE_SUCCESS,
-  file
+  fileContent
 })
 
 export const PARSE_DATAFILE_FAILURE = 'PARSE_DATAFILE_FAILURE'

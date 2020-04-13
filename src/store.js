@@ -22,8 +22,6 @@ const getStore = () => {
   const enhancer = composeEnhancers(applyMiddleware(...middlewares))
 
   const rootReducer = combineReducers({
-    // createTaskReducer,
-    // checkTaskStatusReducer,
     approximationTask,
     dataSource,
     visualisation,

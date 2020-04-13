@@ -31,3 +31,8 @@ export const checkTaskStatusFailure = (err) => ({
   type: CHECK_TASK_STATUS_FAILURE,
   error: err
 })
+
+export const RESET_PARAMS = 'RESET_PARAMS'
+export const resetParams = () => ({
+  type: RESET_PARAMS
+})

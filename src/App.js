@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
-import { AppBar, Grid, Toolbar, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import ParamsPanel from './components/ParamsPanel'
 import VisualisationPanel from './components/VisualisationPanel'
 import useStyles from './atoms'
@@ -24,25 +24,37 @@ function App () {
 
   return (
     <div className='App'>
-      <AppBar position='sticky'>
-        <Toolbar>
-          <Typography variant='h6' className={classes.title}>
-              System aproksymujący zbiór wartości funkcją generowaną przez programowanie genetyczne
-          </Typography>
-        </Toolbar>
-      </AppBar>
 
-      <Grid className={classes.defaultPadding} container>
-        <Grid item xs={3} className={classes.gridItem}>
+      <Grid
+        className={classes.defaultPadding}
+        container
+      >
+        <Grid
+          item
+          xs={3}
+          className={classes.gridItem}
+        >
           <ParamsPanel />
         </Grid>
-        <Grid item xs={9} className={classes.gridItem}>
+        <Grid
+          item
+          xs={9}
+          className={classes.gridItem}
+        >
           <VisualisationPanel />
         </Grid>
       </Grid>
 
-      <Snackbar open={notification.isOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }} autoHideDuration={6000} onClose={() => dispatch(closeSnackbar())}>
-        <Alert onClose={() => dispatch(closeSnackbar())} severity={notification.type}>
+      <Snackbar
+        open={notification.isOpen}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        autoHideDuration={6000}
+        onClose={() => dispatch(closeSnackbar())}
+      >
+        <Alert
+          onClose={() => dispatch(closeSnackbar())}
+          severity={notification.type}
+        >
           {notification.message}
         </Alert>
       </Snackbar>
