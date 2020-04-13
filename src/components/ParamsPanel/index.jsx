@@ -43,6 +43,10 @@ const ParamsPanel = __ => {
     }
   }
 
+  const onReset = () => {
+    setAlgorithmParams(defaultParams)
+  }
+
   const onFileInputSubmit = async e => {
     e.preventDefault()
     const formData = new window.FormData()
@@ -79,6 +83,7 @@ const ParamsPanel = __ => {
           <Slider
             defaultValue={defaultParams.populationSize}
             valueLabelDisplay='auto'
+            value={algorithmParams.populationSize}
             step={25}
             marks
             min={25}
@@ -92,6 +97,7 @@ const ParamsPanel = __ => {
           <Slider
             defaultValue={defaultParams.generationsNumber}
             valueLabelDisplay='auto'
+            value={algorithmParams.generationsNumber}
             step={10}
             marks
             min={10}
@@ -106,6 +112,7 @@ const ParamsPanel = __ => {
             defaultValue={defaultParams.crossoverProbability}
             aria-labelledby='discrete-slider'
             valueLabelDisplay='auto'
+            value={algorithmParams.crossoverProbability}
             step={0.05}
             marks
             min={0}
@@ -120,6 +127,7 @@ const ParamsPanel = __ => {
             defaultValue={defaultParams.mutationProbability}
             aria-labelledby='discrete-slider'
             valueLabelDisplay='auto'
+            value={algorithmParams.mutationProbability}
             step={0.05}
             marks
             min={0}
@@ -150,7 +158,7 @@ const ParamsPanel = __ => {
         {renderProgressBar(taskProgress)}
         <Box display='flex' p={1}>
           <Box className={classes.alignLeft} p={1} flexGrow={1}>
-            <Button variant='contained' onClick={() => { window.alert('not implemented') }} color='tertiary' component='span' startIcon={<SettingsBackupRestoreIcon />}>
+            <Button variant='contained' onClick={onReset} component='span' startIcon={<SettingsBackupRestoreIcon />}>
               Reset
             </Button>
           </Box>
@@ -166,7 +174,7 @@ const ParamsPanel = __ => {
 
 const renderProgressBar = (taskProgress) => {
   if (taskProgress !== 0 && taskProgress !== 100) {
-    return <LinearProgress variant='determinate' visible={false} value={taskProgress} />
+    return <LinearProgress variant='determinate' value={taskProgress} />
   } else {
     return null
   }

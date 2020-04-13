@@ -1,5 +1,7 @@
 import { ActionsObservable } from 'redux-observable'
 
+import * as R from 'ramda'
+
 export const LOAD_DATAFILE = 'LOAD_DATAFILE'
 export const loadDatafile = (file) => ({
   type: LOAD_DATAFILE,
@@ -21,19 +23,43 @@ export const parseDatafileFailure = (err) => ({
 export const parseDatafile = (file) => {
   return ActionsObservable.create((observable) => {
     const fileReader = new window.FileReader()
+
     fileReader.onerror = err => observable.error(err)
     fileReader.onabort = err => observable.error(err)
+
     fileReader.onloadend = () => {
-      // let fileContent
-      try {
-        // fileContent = fileReader.readAsText(file)
-      } catch (err) {
-        observable.error('parsing failed')
+      if (isFileContentValid(fileReader.result)) {
+        observable.next(fileReader.result)
+        observable.complete()
+      } else {
+        observable.error('Invalid datafile structure')
       }
-      observable.next(fileReader.result)
-      observable.complete()
     }
 
     fileReader.readAsText(file)
   })
+}
+
+const isFileContentValid = (fileContent) => {
+  const getDim = R.pipe(
+    R.split('\r\n'),
+    R.head(),
+    R.split(' '),
+    R.length)
+
+  const dimensions = getDim(fileContent)
+
+  let isValid = true
+
+  fileContent
+    .split('\r\n')
+    .forEach(line => {
+      const values = line.split(' ')
+      if (values.length !== dimensions) { isValid = false }
+
+      values
+        .forEach(value => { if (isNaN(value)) { isValid = false } })
+    })
+
+  return isValid
 }
