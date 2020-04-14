@@ -1,4 +1,4 @@
-import { CREATE_APPROX_TASK_SUCCESS, CHECK_TASK_STATUS_SUCCESS } from '../../actions'
+import { CREATE_APPROX_TASK_SUCCESS, CHECK_TASK_STATUS_SUCCESS, RESET_PARAMS } from '../../actions'
 
 export const approximationTask = (state = approximationTaskDefault(), action) => {
   switch (action.type) {
@@ -14,6 +14,8 @@ export const approximationTask = (state = approximationTaskDefault(), action) =>
         taskProgress: action.response.progress,
         isDone: action.response.isDone
       }
+    case RESET_PARAMS:
+      return approximationTaskDefault()
     default:
       return state
   }

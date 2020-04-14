@@ -10,7 +10,7 @@ import axios from 'axios'
 import SearchIcon from '@material-ui/icons/Search'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import { loadDatafile, createApproxTask } from '../../actions'
+import { loadDatafile, createApproxTask, resetParams } from '../../actions'
 const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -45,6 +45,7 @@ const ParamsPanel = __ => {
 
   const onReset = () => {
     setAlgorithmParams(defaultParams)
+    dispatch(resetParams())
   }
 
   const onFileInputSubmit = async e => {

@@ -1,4 +1,4 @@
-import { PARSE_DATAFILE_SUCCESS } from '../../actions'
+import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, RESET_PARAMS } from '../../actions'
 import * as R from 'ramda'
 
 export const visualisation = (state = visualisationDefault(), action) => {
@@ -7,6 +7,12 @@ export const visualisation = (state = visualisationDefault(), action) => {
       return {
         dataSourcePlot: toPlotlyFriendlyDataset(action.fileContent)
       }
+    case PARSE_DATAFILE_FAILURE:
+      return {
+        ...visualisationDefault()
+      }
+    case RESET_PARAMS:
+      return visualisationDefault()
     default:
       return state
   }
