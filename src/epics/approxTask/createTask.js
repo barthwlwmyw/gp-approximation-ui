@@ -7,12 +7,14 @@ import {
   createApproxTaskFailure
 } from '../../actions'
 
+import { createTaskRequest } from '../../api'
+
 const createApproxTaskEpic = (action$, state$, { ajax }) =>
   action$.pipe(
     ofType(CREATE_APPROX_TASK),
     withLatestFrom(state$),
     mergeMap(([action, state]) => {
-      return ajax(reqData).pipe(
+      return ajax(createTaskRequest(action.algorithmParams, action.dataFile)).pipe(
         map(res => createApproxTaskSuccess(res.response)),
         catchError(err => ActionsObservable.of(createApproxTaskFailure(err)))
       )
@@ -20,11 +22,3 @@ const createApproxTaskEpic = (action$, state$, { ajax }) =>
   )
 
 export default createApproxTaskEpic
-
-const reqData = {
-  url: 'https://localhost:44322/api/approxTask',
-  method: 'POST'
-  //   headers: {
-  //     'Content-Type': 'application/json; charset=UTF-8'
-  //   }
-}

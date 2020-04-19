@@ -30,7 +30,7 @@ const ParamsPanel = __ => {
   const [algorithmParams, setAlgorithmParams] = useState(defaultParams)
 
   const onApproxTaskStarted = e => {
-    dispatch(createApproxTask())
+    dispatch(createApproxTask(algorithmParams, dataFile))
   }
 
   const onFileInputChange = e => {

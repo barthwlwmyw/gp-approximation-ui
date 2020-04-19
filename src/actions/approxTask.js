@@ -1,6 +1,8 @@
 export const CREATE_APPROX_TASK = 'CREATE_APPROX_TASK'
-export const createApproxTask = () => ({
-  type: CREATE_APPROX_TASK
+export const createApproxTask = (algorithmParams, dataFile) => ({
+  type: CREATE_APPROX_TASK,
+  algorithmParams,
+  dataFile
 })
 
 export const CREATE_APPROX_TASK_SUCCESS = 'CREATE_APPROX_TASK_SUCCESS'
