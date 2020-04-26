@@ -11,7 +11,7 @@ export const approximationTask = (state = approximationTaskDefault(), action) =>
     case CHECK_TASK_STATUS_SUCCESS:
       return {
         ...state,
-        taskProgress: action.response.progress,
+        taskProgress: action.response.taskProgress,
         isDone: action.response.isDone
       }
     case RESET_PARAMS:
