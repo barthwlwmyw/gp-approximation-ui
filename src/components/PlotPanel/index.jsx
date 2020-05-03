@@ -10,11 +10,12 @@ import useStyles from '../../atoms'
 
 const PlotPanel = __ => {
   const data = useSelector(R.path(['visualisation', 'dataSourcePlot']))
+  const evaluatedValues = useSelector(R.path(['visualisation', 'evaluatedValues']))
 
   const classes = useStyles()
 
   if (data != null) {
-    return renderPlot(data)
+    return renderPlot(data, evaluatedValues)
   } else {
     return renderInfoAlert('Info', 'Wizualizacja niedostępna, podaj źródło danych', classes)
   }
@@ -30,8 +31,18 @@ const renderInfoAlert = (title, message, classes) => {
     </>)
 }
 
-const renderPlot = (data) => {
+const renderPlot = (data, evaluatedValues) => {
   const Plot = createPlotlyComponent(Plotly)
+
+  const plotlyData = []
+
+  plotlyData.append({
+    ...data,
+    type: 'scatter',
+    mode: 'markers',
+    marker: { color: '#115293', size: 10 }
+  })
+
   return (
     <>
       <Plot
@@ -40,6 +51,14 @@ const renderPlot = (data) => {
             ...data,
             type: 'scatter',
             mode: 'markers',
+            marker: { color: '#2196f3', size: 10 }
+          },
+          {
+            type: 'scatter',
+            line: { shape: 'spline' },
+            x: data.x,
+            y: evaluatedValues,
+            mode: 'lines',
             marker: { color: '#115293', size: 10 }
           }
         ]}

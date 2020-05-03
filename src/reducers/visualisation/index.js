@@ -1,4 +1,4 @@
-import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, RESET_PARAMS } from '../../actions'
+import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, RESET_PARAMS, CHECK_TASK_STATUS_SUCCESS } from '../../actions'
 import * as R from 'ramda'
 
 export const visualisation = (state = visualisationDefault(), action) => {
@@ -11,6 +11,11 @@ export const visualisation = (state = visualisationDefault(), action) => {
       return {
         ...visualisationDefault()
       }
+    case CHECK_TASK_STATUS_SUCCESS:
+      return {
+        ...state,
+        evaluatedValues: action.response.result.evaluatedValues
+      }
     case RESET_PARAMS:
       return visualisationDefault()
     default:
@@ -20,7 +25,8 @@ export const visualisation = (state = visualisationDefault(), action) => {
 
 const visualisationDefault = () => {
   return {
-    dataSourcePlot: null
+    dataSourcePlot: null,
+    evaluatedValues: null
   }
 }
 
