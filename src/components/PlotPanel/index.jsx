@@ -36,33 +36,31 @@ const renderPlot = (data, evaluatedValues) => {
 
   const plotlyData = []
 
-  plotlyData.append({
+  plotlyData.push({
+    name: 'Podany zbiór wartości',
     ...data,
     type: 'scatter',
     mode: 'markers',
     marker: { color: '#115293', size: 10 }
   })
 
+  if (evaluatedValues) {
+    plotlyData.push({
+      name: 'Funkcja aproksymująca',
+      type: 'scatter',
+      x: data.x,
+      y: evaluatedValues,
+      mode: 'lines',
+      line: { shape: 'spline' },
+      marker: { color: '#e33371', size: 10 }
+    })
+  }
+
   return (
     <>
       <Plot
-        data={[
-          {
-            ...data,
-            type: 'scatter',
-            mode: 'markers',
-            marker: { color: '#2196f3', size: 10 }
-          },
-          {
-            type: 'scatter',
-            line: { shape: 'spline' },
-            x: data.x,
-            y: evaluatedValues,
-            mode: 'lines',
-            marker: { color: '#115293', size: 10 }
-          }
-        ]}
-        layout={{ height: 700, width: 1300, margin: 0 }}
+        data={plotlyData}
+        layout={{ height: 700, width: 1300, margin: 0, showlegend: true }}
       />
     </>)
 }
