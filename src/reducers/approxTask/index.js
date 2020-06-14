@@ -4,7 +4,7 @@ export const approximationTask = (state = approximationTaskDefault(), action) =>
   switch (action.type) {
     case CREATE_APPROX_TASK_SUCCESS:
       return {
-        ...state,
+        isDone: false,
         taskGuid: action.response.taskGuid,
         taskProgress: 1
       }
@@ -12,7 +12,8 @@ export const approximationTask = (state = approximationTaskDefault(), action) =>
       return {
         ...state,
         taskProgress: action.response.taskProgress,
-        isDone: action.response.isDone
+        isDone: action.response.isDone,
+        result: action.response.result.bestResult
       }
     case RESET_PARAMS:
       return approximationTaskDefault()
@@ -25,6 +26,7 @@ const approximationTaskDefault = () => {
   return {
     taskGuid: null,
     taskProgress: 0,
-    isDone: false
+    isDone: false,
+    result: null
   }
 }

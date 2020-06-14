@@ -1,4 +1,4 @@
-import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, RESET_PARAMS, CHECK_TASK_STATUS_SUCCESS } from '../../actions'
+import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, CHECK_TASK_STATUS_SUCCESS } from '../../actions'
 import * as R from 'ramda'
 
 export const visualisation = (state = visualisationDefault(), action) => {
@@ -16,12 +16,9 @@ export const visualisation = (state = visualisationDefault(), action) => {
       return {
         ...state,
         evaluatedValues: action.response.result.evaluatedValues,
-        bestFitnessValues: R.map(R.prop(['bestValue']), action.response.result.algorithmRunMetadata),
-        averageFitnessValues: R.map(R.prop(['averageValue']), action.response.result.algorithmRunMetadata),
-        worstFitnessValues: R.map(R.prop(['worstValue']), action.response.result.algorithmRunMetadata)
+        bestFitnessValues: R.map(R.prop(['bestFitness']), action.response.result.algorithmRunMetadata),
+        bestFitnessInGeneration: R.map(R.prop(['bestFitnessInGeneration']), action.response.result.algorithmRunMetadata)
       }
-    case RESET_PARAMS:
-      return visualisationDefault()
     default:
       return state
   }

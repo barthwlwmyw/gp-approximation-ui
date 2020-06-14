@@ -1,4 +1,4 @@
-import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE, RESET_PARAMS } from '../../actions'
+import { PARSE_DATAFILE_SUCCESS, PARSE_DATAFILE_FAILURE } from '../../actions'
 
 export const dataSource = (state = dataSourceDefault(), action) => {
   switch (action.type) {
@@ -11,8 +11,6 @@ export const dataSource = (state = dataSourceDefault(), action) => {
       return {
         ...dataSourceDefault()
       }
-    case RESET_PARAMS:
-      return dataSourceDefault()
     default:
       return state
   }

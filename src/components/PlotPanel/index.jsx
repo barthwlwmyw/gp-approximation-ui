@@ -13,13 +13,15 @@ const PlotPanel = __ => {
   const dimensions = useSelector(R.path(['visualisation', 'dimensions']))
   const evaluatedValues = useSelector(R.path(['visualisation', 'evaluatedValues']))
 
+  const result = useSelector(R.path(['approximationTask', 'result']))
+
   const classes = useStyles()
 
   if (data != null) {
     if (dimensions === 2) {
-      return renderPlot2D(data, evaluatedValues)
+      return renderPlot2D(data, evaluatedValues, result)
     } else if (dimensions === 3) {
-      return renderPlot3D(data, evaluatedValues)
+      return renderPlot3D(data, evaluatedValues, result)
     }
   } else {
     return renderInfoAlert('Info', 'Wizualizacja niedostępna, podaj źródło danych', classes)
@@ -36,7 +38,7 @@ const renderInfoAlert = (title, message, classes) => {
     </>)
 }
 
-const renderPlot2D = (data, evaluatedValues) => {
+const renderPlot2D = (data, evaluatedValues, result) => {
   const Plot = createPlotlyComponent(Plotly)
 
   const plotlyData = []
@@ -67,10 +69,11 @@ const renderPlot2D = (data, evaluatedValues) => {
         data={plotlyData}
         layout={{ height: 700, width: 1300, margin: 0, showlegend: true }}
       />
+      {renderResult(result)}
     </>)
 }
 
-const renderPlot3D = (data, evaluatedValues) => {
+const renderPlot3D = (data, evaluatedValues, result) => {
   const Plot = createPlotlyComponent(Plotly)
 
   const plotlyData = []
@@ -85,12 +88,37 @@ const renderPlot3D = (data, evaluatedValues) => {
     marker: { color: '#115293', size: 10 }
   })
 
+  if (evaluatedValues) {
+    plotlyData.push({
+      name: 'Funkcja aproksymująca',
+      type: 'mesh3d',
+      opacity: 0.8,
+      color: '#e33371',
+      ...data,
+      z: evaluatedValues,
+      mode: 'lines',
+      line: { shape: 'spline' },
+      marker: { color: '#e33371', size: 10 }
+    })
+  }
+
   return (
     <>
       <Plot
         data={plotlyData}
         layout={{ height: 700, width: 1300, margin: 0, showlegend: true }}
       />
+      {renderResult(result)}
+    </>)
+}
+
+const renderResult = (result) => {
+  return (
+    <>
+      {result &&
+        <>
+    Wynik (ONP): {result}
+        </>}
     </>)
 }
 

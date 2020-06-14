@@ -10,47 +10,52 @@ import useStyles from '../../atoms'
 
 const AlgorithmPanel = __ => {
   const bestValues = useSelector(R.path(['visualisation', 'bestFitnessValues']))
-  const averageValues = useSelector(R.path(['visualisation', 'averageFitnessValues']))
-  const worstValues = useSelector(R.path(['visualisation', 'worstFitnessValues']))
+  const bestValuesInGeneration = useSelector(R.path(['visualisation', 'bestFitnessInGeneration']))
   const classes = useStyles()
   const Plot = createPlotlyComponent(Plotly)
 
   const plotlyData = []
 
-  if (!bestValues || !averageValues || !worstValues) return (renderInfoAlert('Info', 'Wizualizacja niedostępna, uruchom algorytm', classes))
+  if (!bestValues || !bestValuesInGeneration) return (renderInfoAlert('Info', 'Wizualizacja niedostępna, uruchom algorytm', classes))
 
   plotlyData.push({
-    name: 'Best fitness value',
+    name: 'Wartość przystosowania najlepszego osobnika',
     y: bestValues,
     type: 'scatter',
     mode: 'lines',
-    line: { shape: 'spline' },
+    line: { shape: 'linear' },
     marker: { color: '#4caf50', size: 10 }
   })
 
   plotlyData.push({
-    name: 'Avg. fitness value',
-    y: averageValues,
+    name: 'Wartość przystosowania najlepszego osobnika w pokoleniu',
+    y: bestValuesInGeneration,
     type: 'scatter',
     mode: 'lines',
-    line: { shape: 'spline' },
+    line: { shape: 'linear' },
     marker: { color: '#ff9800', size: 10 }
-  })
-
-  plotlyData.push({
-    name: 'Worst fitness value',
-    y: worstValues,
-    type: 'scatter',
-    mode: 'lines',
-    line: { shape: 'spline' },
-    marker: { color: '#f44336', size: 10 }
   })
 
   return (
     <>
       <Plot
         data={plotlyData}
-        layout={{ height: 700, width: 1300, margin: 0, showlegend: true }}
+        layout={{
+          height: 700,
+          width: 1300,
+          margin: 0,
+          showlegend: true,
+          xaxis: {
+            title: {
+              text: 'Pokolenie'
+            }
+          },
+          yaxis: {
+            title: {
+              text: 'Wartość funkcji dopasowania'
+            }
+          }
+        }}
       />
     </>
   )

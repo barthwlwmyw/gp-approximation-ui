@@ -15,7 +15,8 @@ const ParamsPanel = __ => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const taskProgress = useSelector(R.path(['approximationTask', 'taskProgress']))
+  const approximationTask = useSelector(R.path(['approximationTask']))
+  const fileContent = useSelector(R.path(['dataSource', 'fileContent']))
 
   const defaultParams = {
     populationSize: 100,
@@ -156,7 +157,7 @@ const ParamsPanel = __ => {
           </form>
         </Box>
         <Divider />
-        {renderProgressBar(taskProgress)}
+        {renderProgressBar(approximationTask)}
         <Box display='flex' p={1}>
           <Box className={classes.alignLeft} p={1} flexGrow={1}>
             <Button variant='contained' onClick={onReset} component='span' startIcon={<SettingsBackupRestoreIcon />}>
@@ -164,7 +165,7 @@ const ParamsPanel = __ => {
             </Button>
           </Box>
           <Box p={1}>
-            <Button variant='contained' onClick={onApproxTaskStarted} color='primary' component='span' startIcon={<SendIcon />}>
+            <Button variant='contained' disabled={fileContent === null} onClick={onApproxTaskStarted} color='primary' component='span' startIcon={<SendIcon />}>
                   Start
             </Button>
           </Box>
@@ -173,9 +174,19 @@ const ParamsPanel = __ => {
     </>)
 }
 
-const renderProgressBar = (taskProgress) => {
-  if (taskProgress !== 0 && taskProgress !== 100) {
-    return <LinearProgress variant='determinate' value={taskProgress} />
+const renderProgressBar = (approximationTask) => {
+  if (
+    approximationTask &&
+    approximationTask.taskProgress !== 0 &&
+    approximationTask.taskProgress !== 100 &&
+    !approximationTask.isDone) {
+    return (
+      <>
+        Ukończono: &nbsp; {approximationTask.taskProgress}%
+        <LinearProgress variant='determinate' value={approximationTask.taskProgress} />
+        <Divider />
+      </>
+    )
   } else {
     return null
   }
