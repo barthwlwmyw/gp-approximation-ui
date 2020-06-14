@@ -12,7 +12,7 @@ ReactDOM.render(
       <App />
     </Provider>
 
-    <script crossorigin src='https://cdn.plot.ly/plotly-latest.min.js' />
+    {/* <script crossorigin src='https://cdn.plot.ly/plotly-latest.min.js' /> */}
   </>
   , document.getElementById('root'))
 

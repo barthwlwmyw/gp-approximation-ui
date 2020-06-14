@@ -5,7 +5,8 @@ export const visualisation = (state = visualisationDefault(), action) => {
   switch (action.type) {
     case PARSE_DATAFILE_SUCCESS:
       return {
-        dataSourcePlot: toPlotlyFriendlyDataset(action.fileContent)
+        dataSourcePlot: toPlotlyFriendlyDataset(action.fileContent),
+        dimensions: getDimensions(action.fileContent)
       }
     case PARSE_DATAFILE_FAILURE:
       return {
@@ -26,6 +27,12 @@ export const visualisation = (state = visualisationDefault(), action) => {
   }
 }
 
+const getDimensions = R.pipe(
+  R.split('\r\n'),
+  R.head(),
+  R.split(' '),
+  R.length)
+
 const visualisationDefault = () => {
   return {
     dataSourcePlot: null,
@@ -36,12 +43,17 @@ const visualisationDefault = () => {
 const toPlotlyFriendlyDataset = (file) => {
   let xvals = []
   let yvals = []
+  let zvals = []
 
   file.split('\r\n').forEach(line => {
     const values = line.split(' ')
     xvals = R.append(values[0], xvals)
     yvals = R.append(values[1], yvals)
+
+    if (getDimensions(file) === 3) {
+      zvals = R.append(values[2], zvals)
+    }
   })
 
-  return { x: xvals, y: yvals }
+  return { x: xvals, y: yvals, z: zvals }
 }

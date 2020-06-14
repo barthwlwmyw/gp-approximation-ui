@@ -28,8 +28,5 @@ const reqData = (taskGuid) => {
   return {
     url: `https://localhost:44322/api/approxTask/${taskGuid}`,
     method: 'GET'
-  //   headers: {
-  //     'Content-Type': 'application/json; charset=UTF-8'
-  //   }
   }
 }
